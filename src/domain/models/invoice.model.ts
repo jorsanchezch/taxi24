@@ -1,6 +1,13 @@
-import { Model } from "./shared/Model";
+import { Entity, Column, ManyToOne } from 'typeorm';
+import Model from "./model";
+import { Trip } from './trip.model';
 
+@Entity()
 export class Invoice extends Model {
-    tripDate: Date;
+
+    @Column()
     amount: number;
+
+    @ManyToOne(() => Trip, trip => trip.invoices)
+    trip: Trip;
 }

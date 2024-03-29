@@ -1,12 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { BaseEntity } from './shared/entity';
+import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
+import BaseEntity from './entity';
+import { Trip } from 'src/domain/models/trip.model';
+import { User } from 'src/domain/models/user.model';
 
 @Entity()
 export class Driver extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
 
     @Column()
     name: string;
 
+    @Column('json')
+    position: { latitude: number; longitude: number };
+
+    @OneToMany(() => Trip, trip => trip.driver)
+    trips: Trip[];
+
+    @ManyToOne(() => User, user => user.profile)
+    user: User;
 }
