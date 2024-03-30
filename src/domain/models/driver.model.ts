@@ -1,21 +1,12 @@
-import Model from './model';
-import { Entity, Column, OneToMany, ManyToOne } from 'typeorm'; 
+import { Column, Entity, OneToMany} from 'typeorm'; 
 import { Trip } from './trip.model';
-import { User } from './user.model';
+import Traveler from './shared/traveler.profile.model';
 
 @Entity()
-export class Driver extends Model{
-    @Column()
-    name: string;
-
-    @Column('json')
-    position: { latitude: number; longitude: number };
-
+export class Driver extends Traveler {
     @OneToMany(() => Trip, trip => trip.driver)
     trips: Trip[];
 
-    @ManyToOne(() => User, user => user.profile)
-    user: User;
-
+    @Column({ default: true })
     isAvailable: boolean;
 }

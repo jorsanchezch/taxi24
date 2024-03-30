@@ -2,22 +2,24 @@ import { Inject } from "@nestjs/common";
 import { Driver } from "src/domain/models/driver.model";
 import { DriverRepository } from "src/infrastructure/persistence/driver.repository";
 import { UseCase } from "./use-case";
-import { GetDriversFilter } from "../filters/get-drivers.filter";
 
-export class GetDriversUseCase implements UseCase {
+export class GetAvailableDriversWithinRadiusUseCase implements UseCase {
     constructor(
         @Inject(DriverRepository)
         private readonly driverRepo: DriverRepository, 
     ) {}
 
-    async execute(filters?: GetDriversFilter): Promise<Driver[]> {
+    execute(radius: number): Promise<Driver[]> {
         try {
-            const drivers = await this.driverRepo.getAll(filters);
+            const drivers = this.driverRepo.getAll({
+                radius: radius,
+                isAvailable: true
+            });
 
             return drivers;
         } catch (error) {
             // Handle error
-            throw new Error('Failed to get drivers');
+            throw new Error('Failed to get driver within radius');
         }
     }
 }
