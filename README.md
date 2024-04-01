@@ -24,7 +24,8 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Boilderplate project on [Nest](https://github.com/nestjs/nest) for taxi24, a fiction startup for white brand taxi solutions.
+Included DDL queries and Postman Collection. Though databse is set to synchronize automatically with TypeORM entities.
 
 ## Installation
 
@@ -32,6 +33,15 @@
 $ npm install
 ```
 
+## Setting up the database
+
+```bash
+# development
+$ docker-compose up
+```
+
+You may view the database on dockered pgAdmin at localhost:8080
+<img src="https://i.imgur.com/tg1Y8SA.png">
 ## Running the app
 
 ```bash
@@ -57,20 +67,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-
-Optar por multi tenencia o clasificación por compañía cliente. El pasajero podría ser anónimo, el conductor deberá registrarse con nuestra empresa startup. I wouldnt do entities and models separately.

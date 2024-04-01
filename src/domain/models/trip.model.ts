@@ -10,12 +10,14 @@ export class Trip extends Model{
     @Column({
         type: 'geometry',
         spatialFeatureType: 'Point',
+        srid: 4326
     })
     startPos: Geometry;
 
     @Column({
         type: 'geometry',
         spatialFeatureType: 'Point',
+        srid: 4326,
         nullable: true
     })
     endPos?: Geometry;

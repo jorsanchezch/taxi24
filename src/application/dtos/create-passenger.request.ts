@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString, IsNumber } from "class-validator";
 import { Request } from "./request";
 import { Dto } from "./dto";
 import { Passenger, User } from "src/domain/models";
@@ -8,6 +8,7 @@ export class CreatePassengerRequest extends Request implements Dto<Passenger> {
     @IsString()
     name: string;
 
+    @IsNumber()
     userId: number;
 
     toModel(): Passenger {
