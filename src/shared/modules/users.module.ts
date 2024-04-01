@@ -1,16 +1,16 @@
 // import { Module } from '@nestjs/common';
 // import { TypeOrmModule } from '@nestjs/typeorm';
-// import { UserController } from './application/controllers/user.controller';
-// import { UserRepository } from './infrastructure/persistence/user.repository';
+// import { UserController } from 'src/application/controllers';
+// import { UserRepository } from 'src/infrastructure/persistence';
 
 // @Module({
 //   imports: [
 //   ],
 //   controllers: [
-//     DriverController
+//     UserController
 //   ],
 //   providers: [
-//     DriverRepository
+//     UserRepository
 //   ],
 // })
-// export class AppModule {}
+// export class UsersModule {}

@@ -1,10 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MixedList, EntitySchema } from 'typeorm';
-import { Driver } from "./models/driver.model";
-import { User } from "./models/user.model";
-import { Passenger } from "./models/passenger.model";
-import { Invoice } from "./models/invoice.model";
-import { Trip } from "./models/trip.model";
+import { Driver, User, Passenger, Invoice, Trip } from "./models";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 import Model from './models/model';

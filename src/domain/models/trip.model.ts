@@ -1,30 +1,37 @@
-import { Entity, Column, ManyToOne, ManyToMany, CreateDateColumn, OneToOne, Point, JoinTable } from 'typeorm';
+import { Entity, Column, ManyToOne, ManyToMany, OneToOne, JoinTable } from 'typeorm';
 import Model from './model';
-import { Driver } from './driver.model';
-import { Invoice } from './invoice.model';
-import { Passenger } from './passenger.model';
-import TripStates from '../enums/trip-states.enum';
+import { Invoice, Passenger, Driver } from '.';
+import { TripStatus } from '../enums';
+import { Geometry } from 'geojson';
 
 // Aggregate root
 @Entity()
 export class Trip extends Model{
-    @Column('point')
-    startPos: string;
+    @Column({
+        type: 'geometry',
+        spatialFeatureType: 'Point',
+    })
+    startPos: Geometry;
 
-    @Column('point')
-    endPos?: string;
+    @Column({
+        type: 'geometry',
+        spatialFeatureType: 'Point',
+        nullable: true
+    })
+    endPos?: Geometry;
 
-    @Column('timestamptz')
+    @Column({ type: 'timestamptz', nullable: true })
     startTime?: Date;
 
-    @Column('timestamptz')
+    @Column({ type: 'timestamptz', nullable: true })
     endTime?: Date;
 
     @Column({
         type: 'enum',
-        enum: TripStates
+        enum: TripStatus,
+        default: TripStatus.CREATED
     })
-    public state: TripStates;
+    public status: TripStatus;
 
     @ManyToMany(() => Passenger, passenger => passenger.trips)
     @JoinTable({ name: 'trip_passengers' })
@@ -53,9 +60,10 @@ export class Trip extends Model{
         this.endTime = new Date();
     }
 
-    completeTrip(incurredFees?: number) {
-        this.state = TripStates.COMPLETED;
+    complete(incurredFees?: number) {
+        this.status = TripStatus.COMPLETED;
         this.setEndTime();
         this.incurredFees = incurredFees;
+        // generate Invoice by passing this model to an invoice constructor. Attaching the invoice to the trip. Doing it by event listening preferrably.
     }
 }

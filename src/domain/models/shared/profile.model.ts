@@ -1,6 +1,6 @@
 import { Column, OneToOne, JoinColumn } from 'typeorm';
 import Model from '../model';
-import { User } from '../user.model';
+import { User } from '..';
 
 export default abstract class Profile extends Model {
     @Column()

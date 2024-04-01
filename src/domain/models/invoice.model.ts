@@ -1,9 +1,7 @@
 import { Entity, Column, OneToOne, JoinColumn, BeforeInsert } from 'typeorm';
 import Model from "./model";
-import { Trip } from './trip.model';
-import PaymentMethod from '../enums/payment-methods.enum';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
-
+import { Trip } from '.';
+import { PaymentMethod } from '../enums';
 @Entity()
 export class Invoice extends Model {
     @Column()

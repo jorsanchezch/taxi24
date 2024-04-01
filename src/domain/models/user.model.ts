@@ -1,8 +1,7 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import Model from './model';
-import { Role } from '../enums/roles.enum';
-import { Driver } from './driver.model';
-import { Passenger } from './passenger.model';
+import { Role } from '../enums';
+import { Driver, Passenger } from '.';
 import Profile from './shared/profile.model';
 
 @Entity()

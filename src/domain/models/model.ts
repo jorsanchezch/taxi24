@@ -9,4 +9,8 @@ export default abstract class Model {
 
     @UpdateDateColumn()
     updated: Date;
+
+    associate(id: number) {
+        return this.constructor(id);
+    }
 }

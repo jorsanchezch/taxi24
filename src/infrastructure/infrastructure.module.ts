@@ -1,11 +1,14 @@
 import { Module, Provider } from '@nestjs/common';
-import { DriverRepository } from './persistence/driver.repository';
+import { DriverRepository, InvoiceRepository, PassengerRepository, TripRepository, UserRepository } from './persistence';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresDataConfig } from './data-source';
-import { DataSource } from 'typeorm';
 
 const repos: Provider[] = [
-  DriverRepository
+  DriverRepository,
+  PassengerRepository,
+  TripRepository,
+  InvoiceRepository,
+  UserRepository
 ];
 
 @Module({

@@ -1,6 +1,9 @@
-import Filter from './filter';
+import Filter from "./filter";
+import { Geometry } from "geojson";
 
 export interface GetDriversFilter extends Filter {
-    radius?: number;
+    amount?: number;
     isAvailable?: boolean;
+    radius?: number;
+    point?: Geometry;
   }

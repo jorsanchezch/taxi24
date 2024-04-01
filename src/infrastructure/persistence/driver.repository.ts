@@ -1,26 +1,20 @@
-// import Repository from "./repository";
 import { TypeOrmRepository } from "./shared/typeorm.repository";
-import { Driver } from "src/domain/models/driver.model";
-import { IDriverRepository } from "src/application/contracts/driver.repository.contract";
+import { Driver } from "src/domain/models";
+import { IDriverRepository } from "src/application/contracts/repositories";
+import { GetNearbyDriversFilter } from "src/application/filters/get-nearby-drivers.filter";
 
+// Correct naming ideally would be TypeOrmDriverRepository implements DriverRepository
 export class DriverRepository extends TypeOrmRepository<Driver> implements IDriverRepository {
     constructor() {
         super(Driver);
     }
 
-    async getWithinRadius(radius: number): Promise<Driver[]> {
-        return await this.repo.find();
-    }
-
-    async add(model: Driver): Promise<Driver> {
-        return await this.repo.find()[0];
-    }
-
-    async update(model: Driver): Promise<Driver> {
-        return await this.repo.find()[0];
-    }
-
-    async delete(id: string): Promise<void> {
-        return;
+    getNearby(filters: GetNearbyDriversFilter): Promise<Driver[]> {
+        const rawSql = `
+            SELECT *
+            FROM driver
+            WHERE ST_DWithin(position::GEOMETRY, ST_MakePoint(${filters.longitude}, ${filters.latitude}), ${filters.radius});
+        `;
+        return this.repo.query(rawSql);
     }
 }

@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany} from 'typeorm'; 
-import { Trip } from './trip.model';
+import { Trip } from '.';
 import Traveler from './shared/traveler.profile.model';
 
 @Entity()

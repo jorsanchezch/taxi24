@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { GetDriverUseCase, GetDriversUseCase, GetAvailableDriversUseCase, GetAvailableDriversWithinRadiusUseCase  } from '../use-cases';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
+import { GetDriverUseCase, GetDriversUseCase, GetAvailableDriversUseCase, GetAvailableNearbyDriversUseCase, CreateDriverUseCase  } from '../use-cases';
+import { CreateDriverRequest, GetNearbyDriversRequest } from '../dtos';
 
 @Controller('drivers')
 export class DriverController {
@@ -7,7 +8,8 @@ export class DriverController {
         private readonly getDrivers: GetDriversUseCase, 
         private readonly getDriver: GetDriverUseCase,
         private readonly getAvailableDrivers: GetAvailableDriversUseCase,
-        private readonly getAvailableDriversWithinRadius: GetAvailableDriversWithinRadiusUseCase
+        private readonly getAvailableNearbyDrivers: GetAvailableNearbyDriversUseCase,
+        private readonly createDriver: CreateDriverUseCase,
     ) {}
 
     @Get()
@@ -15,33 +17,24 @@ export class DriverController {
         return this.getDrivers.execute();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.getDriver.execute(id);
-    }
-
     @Get('available')
     findAvailable(){
         return this.getAvailableDrivers.execute();
     }
 
-    @Get('available/:radius')
-    findAvailableWithinRadius(@Param('radius') radius: number){
-        return this.getAvailableDriversWithinRadius.execute(radius);
+    @Get('nearby')
+    findAvailableNearby(@Query() params: GetNearbyDriversRequest) {
+        return this.getAvailableNearbyDrivers.execute(params);
     }
-    
-    // @Post()
-    // create(@Body() createDriverDto: CreateDriverDto) {
-    //     return this.driverRepo.create(createDriverDto);
-    // }
 
-    // @Put(':id')
-    // update(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto) {
-    //     return this.driverRepo.update(id, updateDriverDto);
-    // }
+    @Get(':id')
+    findOne(@Param('id') id: number) {
+        return this.getDriver.execute(id);
+    }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        // return this.driverRepo.delete(id);
+    @Post()
+    create(@Body() params: CreateDriverRequest){
+
+        return this.createDriver.execute(params);
     }
 }

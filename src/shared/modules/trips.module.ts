@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { DriverController } from 'src/application/controllers/driver.controller';
-import { DriverRepository } from 'src/infrastructure/persistence/driver.repository';
+// import { Module } from '@nestjs/common';
+// import { TripController } from 'src/application/controllers';
+// import { TripRepository } from 'src/infrastructure/persistence';
 
-@Module({
-  imports: [],
-  controllers: [
-    DriverController
-  ],
-  providers: [
-    DriverRepository
-  ],
-})
-export class TripsModule {}
+// @Module({
+//   imports: [],
+//   controllers: [
+//     TripController
+//   ],
+//   providers: [
+//     TripRepository
+//   ],
+// })
+// export class TripsModule {}

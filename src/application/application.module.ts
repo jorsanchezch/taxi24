@@ -1,17 +1,36 @@
 import { Module } from '@nestjs/common';
-import { DriverController } from './controllers/driver.controller';
+import { DriverController, PassengerController, TripController, InvoiceController, UserController } from './controllers';
 import { InfrastructureModule } from 'src/infrastructure/infrastructure.module';
-import { GetDriversUseCase } from './use-cases/get-drivers.use-case';
+import { GetDriverUseCase, GetDriversUseCase, GetAvailableDriversUseCase,
+         GetAvailableNearbyDriversUseCase, CreateTripUseCase, CompleteTripUseCase, 
+         GenerateInvoiceUseCase, GetTripsUseCase, CreateUserUseCase, GetNearbyDriversUseCase, 
+         CreateDriverUseCase,
+         CreatePassengerUseCase} from './use-cases';
 
 @Module({
   imports: [
     InfrastructureModule,
   ],
   controllers: [
-    DriverController
+    DriverController,
+    PassengerController,
+    TripController,
+    InvoiceController,
+    UserController
   ],
   providers: [
-    GetDriversUseCase
+    GetDriverUseCase,
+    GetDriversUseCase,
+    GetAvailableDriversUseCase,
+    GetNearbyDriversUseCase,
+    GetAvailableNearbyDriversUseCase,
+    GetTripsUseCase,
+    GenerateInvoiceUseCase,
+    CreateTripUseCase,
+    CreateDriverUseCase,
+    CreateUserUseCase,
+    CreatePassengerUseCase,
+    CompleteTripUseCase,
   ],
 })
 export class ApplicationModule {}

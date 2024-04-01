@@ -1,32 +1,43 @@
-import { Repository, EntityTarget, FindManyOptions } from 'typeorm';
+import { Repository, EntityTarget, ObjectLiteral } from 'typeorm';
 import Model from 'src/domain/models/model';
-import BaseRepository from 'src/infrastructure/persistence/repository';
+import BaseRepository from 'src/infrastructure/persistence/repository'
 import { TaxiDataSource } from 'src/infrastructure/data-source';
 import Filter from 'src/application/filters/filter';
 
-export abstract class TypeOrmRepository<TModel extends Model> extends BaseRepository<TModel> {
+// Ideal base implementation would be query builders.
+export abstract class TypeOrmRepository<TModel extends Model, TFilter = Filter> extends BaseRepository<TModel> {
   protected readonly repo: Repository<TModel>;
 
-  constructor(private readonly model: EntityTarget<TModel>
+  constructor(
+    private readonly model: EntityTarget<TModel>
   ) {
     super();
-    this.repo = TaxiDataSource.getRepository<TModel>(model);
+    this.repo = TaxiDataSource.getRepository(model);
   }
 
-  public async getAll(filters?: Filter): Promise<TModel[]>{
+  getAll(filters?: Filter): Promise<TModel[]>{
     const conditions = {};
 
     if(filters)
       conditions['where'] = filters;
 
-    return await this.repo.find(conditions);
+    return this.repo.find(conditions);
   }
 
-  public async getById(id): Promise<TModel> {
-    return await this.repo.findOneBy({id: id});
+  getById(id): Promise<TModel> {
+    return this.repo.findOneByOrFail({id: id});
   }
 
-  public async save(model: TModel): Promise<TModel> {
+  create(model: TModel): Promise<TModel> {
     return this.repo.save(model);
+  }
+
+  update(model: TModel): Promise<TModel> {
+    let updates: any = model as ObjectLiteral;
+    return this.repo.update(model.id, updates).then(() => model);
+  }
+
+  delete(id: string): Promise<void> {
+    return this.repo.delete(id).then(() => {});
   }
 }

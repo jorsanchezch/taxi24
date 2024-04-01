@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
-import { Driver } from "src/domain/models/driver.model";
-import { DriverRepository } from "src/infrastructure/persistence/driver.repository";
+import { Driver } from "src/domain/models";
+import { DriverRepository } from "src/infrastructure/persistence";
 import { UseCase } from "./use-case";
 
 export class GetDriverUseCase implements UseCase {
@@ -15,7 +15,7 @@ export class GetDriverUseCase implements UseCase {
 
             return driver;
         } catch (error) {
-            // Handle error
+            
             throw new Error('Failed to get driver with id: ' + id);
         }
     }

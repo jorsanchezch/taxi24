@@ -1,35 +1,24 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { DriverRepository } from 'src/infrastructure/persistence/driver.repository'; // Import the driver repository
-import { CreateDriverRequest } from '../dtos/create-driver.request';
+import { InvoiceRepository } from 'src/infrastructure/persistence';
 
-@Controller('drivers')
+@Controller('invoices')
 export class InvoiceController {
     constructor(
-        private readonly driverRepo: DriverRepository, 
+        private readonly invoiceRepo: InvoiceRepository, 
     ) {}
 
     @Get()
     findAll() {
-        return this.driverRepo.getAll();
+        return this.invoiceRepo.getAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.driverRepo.getById(id);
+        return this.invoiceRepo.getById(id);
     }
-
-    // @Post()
-    // create(@Body() createDriverDto: CreateDriverDto) {
-    //     return this.driverRepo.create(createDriverDto);
-    // }
-
-    // @Put(':id')
-    // update(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto) {
-    //     return this.driverRepo.update(id, updateDriverDto);
-    // }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.driverRepo.delete(id);
+        return this.invoiceRepo.delete(id);
     }
 }

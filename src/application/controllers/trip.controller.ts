@@ -1,35 +1,35 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { DriverRepository } from 'src/infrastructure/persistence/driver.repository'; // Import the driver repository
-import { CreateDriverRequest } from '../dtos/create-driver.request';
+import { CompleteTripUseCase, CreateTripUseCase, GetTripsUseCase } from '../use-cases';
+import { CreateTripRequest } from '../dtos';
+import { TripStatus } from 'src/domain/enums';
 
-@Controller('drivers')
+@Controller('trips')
 export class TripController {
     constructor(
-        private readonly driverRepo: DriverRepository, 
+        private readonly createTrip: CreateTripUseCase, 
+        private readonly completeTrip: CompleteTripUseCase,
+        private readonly getTrips: GetTripsUseCase
     ) {}
 
     @Get()
     findAll() {
-        return this.driverRepo.getAll();
+        return this.getTrips.execute();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.driverRepo.getById(id);
+    @Get('available')
+    findActive(){
+        return this.getTrips.execute({
+            status: TripStatus.IN_PROGRESS
+        });
     }
 
-    // @Post()
-    // create(@Body() createDriverDto: CreateDriverDto) {
-    //     return this.driverRepo.create(createDriverDto);
-    // }
+    @Put('complete/:id')
+    complete(@Param('id') id: number) {
+        return this.completeTrip.execute(id);
+    }
 
-    // @Put(':id')
-    // update(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto) {
-    //     return this.driverRepo.update(id, updateDriverDto);
-    // }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.driverRepo.delete(id);
+    @Post()
+    create(@Body() params: CreateTripRequest) {
+        return this.createTrip.execute(params);
     }
 }

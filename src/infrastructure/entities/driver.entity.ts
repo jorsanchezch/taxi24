@@ -1,7 +1,6 @@
 import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
 import BaseEntity from './entity';
-import { Trip } from 'src/domain/models/trip.model';
-import { User } from 'src/domain/models/user.model';
+import { Trip, User } from 'src/domain/models';
 
 @Entity()
 export class Driver extends BaseEntity {

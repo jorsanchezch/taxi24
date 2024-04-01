@@ -1,35 +1,28 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { DriverRepository } from 'src/infrastructure/persistence/driver.repository'; // Import the driver repository
-import { CreateDriverRequest } from '../dtos/create-driver.request';
+import { PassengerRepository } from 'src/infrastructure/persistence';
+import { CreatePassengerUseCase } from '../use-cases';
+import { CreatePassengerRequest } from '../dtos';
 
-@Controller('drivers')
+@Controller('passengers')
 export class PassengerController {
     constructor(
-        private readonly driverRepo: DriverRepository, 
+        private readonly passengerRepo: PassengerRepository,
+        private readonly createPassenger: CreatePassengerUseCase,
     ) {}
 
     @Get()
     findAll() {
-        return this.driverRepo.getAll();
+        return this.passengerRepo.getAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.driverRepo.getById(id);
+        return this.passengerRepo.getById(id);
     }
 
-    // @Post()
-    // create(@Body() createDriverDto: CreateDriverDto) {
-    //     return this.driverRepo.create(createDriverDto);
-    // }
+    @Post()
+    create(@Body() params: CreatePassengerRequest){
 
-    // @Put(':id')
-    // update(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto) {
-    //     return this.driverRepo.update(id, updateDriverDto);
-    // }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.driverRepo.delete(id);
+        return this.createPassenger.execute(params);
     }
 }

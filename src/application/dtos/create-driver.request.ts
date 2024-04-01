@@ -1,18 +1,19 @@
-import { IsString, IsNotEmpty, IsJSON } from 'class-validator';
+import { IsString } from "class-validator";
+import { Request } from "./request";
+import { Dto } from "./dto";
+import { Driver, User } from "src/domain/models";
+import Factory from "src/test/factories/factory";
 
-export class CreateDriverRequest {
+export class CreateDriverRequest extends Request implements Dto<Driver> {
     @IsString()
-    @IsNotEmpty()
     name: string;
 
-    @IsJSON()
-    position: string;
+    userId: number;
 
-
-    // Add any other properties you need for creating a driver
-
-    constructor(name: string, position: string) {
-        this.name = name;
-        this.position = position;
+    toModel(): Driver {
+        const driver = new Driver();
+        driver.name = this.name;
+        driver.user = Factory.make(this.userId, User);
+        return driver;
     }
 }
