@@ -14,20 +14,21 @@ export class CreateDriverRequest extends Request implements Dto<Driver> {
 
     @IsBoolean()
     @IsOptional()
-    isAvailable: boolean;
+    isAvailable?: boolean;
 
     @IsLongitude()
     @IsOptional()
-    posLongitude: number;
+    posLongitude?: number;
 
     @IsLatitude()
     @IsOptional()
-    posLatitude: number;
+    posLatitude?: number;
 
     toModel(): Driver {
         const driver = new Driver();
         driver.name = this.name;
         driver.user = Factory.make(this.userId, User);
+        driver.isAvailable = this.isAvailable;
         driver.position = Formatter.toPoint(this.posLongitude, this.posLatitude);
         return driver;
     }
