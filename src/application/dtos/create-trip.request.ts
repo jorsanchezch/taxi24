@@ -19,9 +19,6 @@ export class CreateTripRequest extends Request implements Dto<Trip> {
     @IsNumber({}, { each: true })
     passengerIds: number[];
 
-    @IsNumber()
-    driverId: number;
-
     incurredFees?: number;
 
     toModel(): Trip {
@@ -30,7 +27,6 @@ export class CreateTripRequest extends Request implements Dto<Trip> {
         trip.status = this.status;
         trip.incurredFees = this.incurredFees;
         trip.passengers = Factory.makeMany(this.passengerIds, Passenger);
-        trip.driver = Factory.make(this.driverId, Driver);
         return trip;
     }
 }

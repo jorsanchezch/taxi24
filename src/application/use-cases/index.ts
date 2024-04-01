@@ -4,6 +4,7 @@ export * from './get-drivers.use-case';
 export * from './get-available-drivers.use-case';
 export * from './get-available-nearby-drivers.use-case';
 export * from './get-nearby-drivers.use-case';
+export * from './get-nearby-drivers-for-trip.use-case';
 export * from './get-passenger.use-case';
 export * from './get-passengers.use-case';
 export * from './generate-invoice.use-case';

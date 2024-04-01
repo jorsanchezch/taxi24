@@ -188,6 +188,26 @@
 			"response": []
 		},
 		{
+			"name": "get trips",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get available drivers",
 			"request": {
 				"method": "GET",
@@ -209,6 +229,26 @@
 		},
 		{
 			"name": "get nearby drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nearby drivers for passenger",
 			"request": {
 				"method": "GET",
 				"header": [],

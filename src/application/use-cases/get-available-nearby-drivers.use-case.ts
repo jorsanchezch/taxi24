@@ -2,7 +2,7 @@ import { Inject } from "@nestjs/common";
 import { Driver } from "src/domain/models";
 import { DriverRepository } from "src/infrastructure/persistence";
 import { UseCase } from "./use-case";
-import { GetNearbyDriversFilter } from "../filters";
+import { GetNearbyDriversRadiusFilter } from "../filters";
 
 export class GetAvailableNearbyDriversUseCase implements UseCase {
     constructor(
@@ -10,9 +10,9 @@ export class GetAvailableNearbyDriversUseCase implements UseCase {
         private readonly driverRepo: DriverRepository, 
     ) {}
 
-    execute(filters?: GetNearbyDriversFilter): Promise<Driver[]> {
+    execute(filters?: GetNearbyDriversRadiusFilter): Promise<Driver[]> {
         try {
-            const drivers = this.driverRepo.getNearby({
+            const drivers = this.driverRepo.getNearbyRadius({
                 ...filters,
                 amount: undefined
             });

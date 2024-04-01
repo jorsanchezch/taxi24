@@ -39,8 +39,8 @@ export class Trip extends Model{
     @JoinTable({ name: 'trip_passengers' })
     passengers: Passenger[];
 
-    @ManyToOne(() => Driver, driver => driver.trips)
-    driver: Driver;
+    @ManyToOne(() => Driver, driver => driver.trips, { nullable: true })
+    driver?: Driver;
 
     @OneToOne(() => Invoice, invoice => invoice.trip)
     invoices: Invoice[];

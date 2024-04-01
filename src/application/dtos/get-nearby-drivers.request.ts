@@ -1,8 +1,13 @@
-import { IsLongitude, IsLatitude, IsNumber } from 'class-validator';
+import { IsLongitude, IsLatitude, IsNumber, IsOptional } from 'class-validator';
 
 export class GetNearbyDriversRequest {
     @IsNumber()
-    radius: number;
+    @IsOptional()
+    radius: number = undefined;
+
+    @IsNumber()
+    @IsOptional()
+    amount: number = undefined;
 
     @IsLongitude()
     longitude: number;

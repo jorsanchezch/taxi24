@@ -6,6 +6,7 @@ import { GetDriverUseCase, GetDriversUseCase, GetAvailableDriversUseCase,
          GenerateInvoiceUseCase, GetTripsUseCase, CreateUserUseCase, GetNearbyDriversUseCase, 
          CreateDriverUseCase,
          CreatePassengerUseCase} from './use-cases';
+import { GetNearbyDriversForTripUseCase } from './use-cases/get-nearby-drivers-for-trip.use-case';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { GetDriverUseCase, GetDriversUseCase, GetAvailableDriversUseCase,
     CreateUserUseCase,
     CreatePassengerUseCase,
     CompleteTripUseCase,
+    GetNearbyDriversForTripUseCase
   ],
 })
 export class ApplicationModule {}
