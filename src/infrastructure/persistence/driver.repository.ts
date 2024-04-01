@@ -10,10 +10,11 @@ export class DriverRepository extends TypeOrmRepository<Driver> implements IDriv
     }
 
     getNearby(filters: GetNearbyDriversFilter): Promise<Driver[]> {
+        // This is NOT the right way to query for nearby drivers, but time limitations demanded raw SQL.
         const rawSql = `
             SELECT *
             FROM driver
-            WHERE ST_DWithin(position::GEOMETRY, ST_MakePoint(${filters.longitude}, ${filters.latitude}), ${filters.radius});
+            WHERE ST_DWithin(ST_Transform(position::GEOMETRY, 4326), ST_SetSRID(ST_MakePoint(${filters.longitude}, ${filters.latitude}), 4326), ${filters.radius});
         `;
         return this.repo.query(rawSql);
     }
